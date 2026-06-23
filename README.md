@@ -1,1131 +1,126 @@
 # Soleforge-Complete
-<!DOCTYPE html>
-<html class="dark" lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>SOLEFORGE</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<script>
-  tailwind.config = {
-    darkMode:"class",
-    theme:{extend:{
-      colors:{
-        "surface":"#131315","primary":"#dbfcff","secondary":"#ebb2ff","background":"#131315",
-        "on-primary":"#00363a","on-secondary":"#520072","on-surface":"#e5e1e4",
-        "on-surface-variant":"#b9cacb","on-background":"#e5e1e4","surface-container":"#201f21",
-        "surface-container-low":"#1c1b1d","surface-container-high":"#2a2a2c",
-        "surface-container-lowest":"#0e0e10","surface-container-highest":"#353437",
-        "surface-variant":"#353437","surface-bright":"#39393b","surface-dim":"#131315",
-        "surface-tint":"#00dbe9","outline":"#849495","outline-variant":"#3b494b",
-        "primary-fixed":"#7df4ff","primary-fixed-dim":"#00dbe9","on-primary-fixed":"#002022",
-        "on-primary-fixed-variant":"#004f54","on-primary-container":"#006970",
-        "primary-container":"#00f0ff","secondary-container":"#b600f8",
-        "on-secondary-container":"#fff6fc","secondary-fixed":"#f8d8ff",
-        "secondary-fixed-dim":"#ebb2ff","on-secondary-fixed":"#320047",
-        "on-secondary-fixed-variant":"#74009f","tertiary":"#f7f4ff",
-        "on-tertiary":"#303038","tertiary-container":"#dad8e3","on-tertiary-container":"#5e5e67",
-        "tertiary-fixed":"#e3e1ec","tertiary-fixed-dim":"#c7c5d0","on-tertiary-fixed":"#1b1b22",
-        "on-tertiary-fixed-variant":"#46464e","error":"#ffb4ab","on-error":"#690005",
-        "error-container":"#93000a","on-error-container":"#ffdad6",
-        "inverse-surface":"#e5e1e4","inverse-on-surface":"#313032","inverse-primary":"#006970"
-      },
-      fontFamily:{
-        "display-lg":["Sora"],"headline-lg":["Sora"],"headline-md":["Sora"],
-        "headline-lg-mobile":["Sora"],"body-lg":["Inter"],"body-md":["Inter"],
-        "label-mono":["Space Mono"],"stat-mono":["Space Mono"]
-      },
-      fontSize:{
-        "display-lg":["72px",{"lineHeight":"1.1","letterSpacing":"-0.04em","fontWeight":"800"}],
-        "headline-lg":["48px",{"lineHeight":"1.2","letterSpacing":"-0.02em","fontWeight":"700"}],
-        "headline-lg-mobile":["32px",{"lineHeight":"1.2","fontWeight":"700"}],
-        "headline-md":["32px",{"lineHeight":"1.3","fontWeight":"600"}],
-        "body-lg":["18px",{"lineHeight":"1.6","fontWeight":"400"}],
-        "body-md":["16px",{"lineHeight":"1.6","fontWeight":"400"}],
-        "label-mono":["14px",{"lineHeight":"1.2","letterSpacing":"0.1em","fontWeight":"400"}],
-        "stat-mono":["24px",{"lineHeight":"1.0","fontWeight":"700"}]
-      },
-      spacing:{
-        "margin-desktop":"64px","margin-mobile":"16px","gutter":"24px","max-width":"1440px","unit":"4px"
-      },
-      borderRadius:{
-        "DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"
-      }
-    }}
-  }
-</script>
-<style>
-  body { background:#0e0e10; color:#e5e1e4; overflow-x:hidden; min-height:100dvh; }
-  .glass-card { background:rgba(255,255,255,0.03); backdrop-filter:blur(12px); border:1px solid rgba(0,240,255,0.1); transition:all 0.4s cubic-bezier(0.4,0,0.2,1); }
-  .glass-card:hover { border-color:rgba(0,240,255,0.4); box-shadow:0 0 20px rgba(0,240,255,0.15); transform:translateY(-4px); }
-  .neon-btn { background:linear-gradient(135deg,#00f0ff 0%,#b600f8 100%); transition:all 0.3s ease; }
-  .neon-btn:hover { box-shadow:0 0 25px rgba(0,240,255,0.6); transform:scale(1.02); }
-  .custom-scrollbar::-webkit-scrollbar { width:4px; }
-  .custom-scrollbar::-webkit-scrollbar-track { background:rgba(255,255,255,0.05); }
-  .custom-scrollbar::-webkit-scrollbar-thumb { background:#00dbe9; border-radius:10px; }
-  .glow-input:focus { border-bottom-color:#00dbe9; box-shadow:0 4px 12px -4px rgba(0,219,233,0.4); }
-  .hero-glow { background:radial-gradient(ellipse 60% 40% at 50% 60%,rgba(0,240,255,0.12) 0%,transparent 70%); }
-  .stat-card { background:rgba(0,240,255,0.04); border:1px solid rgba(0,240,255,0.15); }
-  .qty-btn { background:rgba(0,240,255,0.08); border:1px solid rgba(0,240,255,0.2); color:#dbfcff; width:32px; height:32px; display:flex; align-items:center; justify-content:center; transition:all 0.2s; cursor:pointer; font-family:'Space Mono',monospace; font-weight:700; }
-  .qty-btn:hover { background:rgba(0,240,255,0.2); border-color:rgba(0,240,255,0.5); }
-  .feature-item { background:rgba(255,255,255,0.02); border:1px solid rgba(0,240,255,0.08); border-radius:4px; padding:8px 12px; font-size:13px; color:#b9cacb; transition:all 0.2s ease; }
-  .feature-item:hover { border-color:rgba(0,240,255,0.3); color:#dbfcff; background:rgba(0,240,255,0.04); }
-  .timeline-line { background:linear-gradient(to bottom,rgba(0,240,255,0.5),transparent); width:1px; }
-  .neon-glow-border { border:1px solid rgba(0,240,255,0.3); }
-  /* Page routing */
-  .sf-page { display:none; }
-  .sf-page.active { display:block; }
-  /* Nav active state */
-  .nav-link.active { color:#dbfcff !important; font-weight:700; border-bottom:2px solid #dbfcff; }
-  .nav-link { color:rgba(185,202,203,0.7); text-decoration:none; }
-  .mobile-nav-link { color:rgba(185,202,203,0.5); text-decoration:none; display:flex; flex-direction:column; align-items:center; }
-  .mobile-nav-link.active { color:#dbfcff; filter:drop-shadow(0 0 8px rgba(0,240,255,0.6)); }
-</style>
-</head>
-<body class="font-body-md text-body-md antialiased custom-scrollbar">
+A single-page static site for SoleForge with a real Stripe-powered checkout backend.
 
-<!-- SHARED BACKGROUND SHADER -->
-<div class="fixed inset-0 z-0 pointer-events-none opacity-20">
-  <canvas id="sf-shader" style="display:block;width:100%;height:100%"></canvas>
-</div>
+```
+soleforge-vercel/
+├── index.html       ← Main site (Tailwind CDN, fonts, inline JS for routing/cart/checkout)
+├── vercel.json      ← Vercel static deploy config
+├── README.md        ← This file
+└── .gitignore
+```
 
-<!-- TOP NAV -->
-<nav class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-8 py-4 bg-surface/10 backdrop-blur-xl rounded-full mt-6 mx-auto max-w-[90%] border border-primary/20 shadow-[0_0_20px_rgba(0,240,255,0.2)]">
-  <div class="flex items-center gap-3 cursor-pointer" onclick="navigate('home')">
-    <span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings:'FILL' 1;">model_training</span>
-    <span class="font-display-lg text-headline-md tracking-tighter text-primary">SOLEFORGE</span>
-  </div>
-  <div class="hidden md:flex items-center gap-8">
-    <a href="#" onclick="navigate('home');return false;" class="nav-link font-label-mono text-label-mono hover:text-primary transition-all" data-navpage="home">Home</a>
-    <a href="#" onclick="navigate('shop');return false;" class="nav-link font-label-mono text-label-mono hover:text-primary transition-all" data-navpage="shop">Shop</a>
-    <a href="#" onclick="navigate('story');return false;" class="nav-link font-label-mono text-label-mono hover:text-primary transition-all" data-navpage="story">Story</a>
-    <a href="#" onclick="navigate('eco');return false;" class="nav-link font-label-mono text-label-mono hover:text-primary transition-all" data-navpage="eco">Eco</a>
-    <a href="#" onclick="navigate('contact');return false;" class="nav-link font-label-mono text-label-mono hover:text-primary transition-all" data-navpage="contact">Contact</a>
-    <a href="#" id="open-roadmap" class="text-secondary font-bold font-label-mono text-label-mono hover:text-primary transition-all border border-secondary/40 px-3 py-1 rounded-sm hover:border-primary">ROADMAP</a>
-  </div>
-  <div class="flex items-center gap-4">
-    <a href="#" onclick="navigate('cart');return false;" class="material-symbols-outlined text-primary hover:scale-110 transition-transform" id="cart-nav-icon">shopping_cart</a>
-    <button class="md:hidden material-symbols-outlined text-primary" id="mobile-menu-btn">menu</button>
-  </div>
-</nav>
+---
 
-<!-- MOBILE MENU DRAWER -->
-<div id="mobile-drawer" class="fixed inset-0 z-[150] hidden">
-  <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeMobileMenu()"></div>
-  <div class="absolute right-0 top-0 bottom-0 w-64 bg-surface-container-lowest border-l border-primary/20 flex flex-col pt-24 px-8 gap-6">
-    <button onclick="navigate('home');closeMobileMenu();" class="text-left font-label-mono text-label-mono text-on-surface-variant hover:text-primary transition-all">Home</button>
-    <button onclick="navigate('shop');closeMobileMenu();" class="text-left font-label-mono text-label-mono text-on-surface-variant hover:text-primary transition-all">Shop</button>
-    <button onclick="navigate('story');closeMobileMenu();" class="text-left font-label-mono text-label-mono text-on-surface-variant hover:text-primary transition-all">Story</button>
-    <button onclick="navigate('eco');closeMobileMenu();" class="text-left font-label-mono text-label-mono text-on-surface-variant hover:text-primary transition-all">Eco</button>
-    <button onclick="navigate('cart');closeMobileMenu();" class="text-left font-label-mono text-label-mono text-on-surface-variant hover:text-primary transition-all">Cart</button>
-    <button onclick="navigate('contact');closeMobileMenu();" class="text-left font-label-mono text-label-mono text-on-surface-variant hover:text-primary transition-all">Contact</button>
-  </div>
-</div>
+## What's wired up
 
-<!-- ══════════════════════════════════════════════════
-     PAGE: HOME
-══════════════════════════════════════════════════ -->
-<div id="sf-home" class="sf-page">
-<main class="relative z-10 pt-36 pb-24 px-6 md:px-16 max-w-[1440px] mx-auto">
+| Feature | Status |
+|---|---|
+| Static site (Home / Shop / Story / Eco / Cart / Contact) | ✅ |
+| Cart with quantity, remove, promo codes | ✅ |
+| Server-side pricing & tax (no client-trusted amounts) | ✅ |
+| Stripe Checkout (test mode) | ✅ |
+| Order tracking + payment polling | ✅ |
+| Webhook endpoint for Stripe events | ✅ |
 
-  <!-- Hero -->
-  <div class="hero-glow absolute top-0 left-0 w-full h-[70vh] pointer-events-none"></div>
-  <section class="relative text-center mb-24 pt-12">
-    <p class="font-label-mono text-label-mono text-secondary tracking-widest mb-4">BATCH 001 — NOW LIVE</p>
-    <h1 class="font-display-lg text-headline-lg-mobile md:text-display-lg text-primary mb-6 leading-none">PRINT.<br/>FORGE.<br/>WEAR.</h1>
-    <p class="font-body-lg text-on-surface-variant max-w-2xl mx-auto mb-10">The world's first algorithmically engineered 3D-printed footwear studio. Every pair is tuned to your biometric footprint — no two are alike.</p>
-    <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <a href="#" onclick="navigate('shop');return false;" class="neon-btn px-10 py-4 font-label-mono text-label-mono text-on-primary font-bold tracking-widest inline-flex items-center gap-2 justify-center">
-        <span class="material-symbols-outlined text-[18px]">bolt</span>SHOP NOW
-      </a>
-      <a href="#" onclick="navigate('story');return false;" class="px-10 py-4 font-label-mono text-label-mono text-primary font-bold tracking-widest border border-primary/40 hover:border-primary transition-colors inline-flex items-center gap-2 justify-center">
-        <span class="material-symbols-outlined text-[18px]">auto_stories</span>OUR STORY
-      </a>
-    </div>
-  </section>
+The backend is a FastAPI + MongoDB service living in `/app/backend` (this repo's `../backend` if you cloned the full project). The static HTML calls it via fetch.
 
-  <!-- Stats Bar -->
-  <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-24">
-    <div class="stat-card rounded-xl p-6 text-center">
-      <p class="font-stat-mono text-stat-mono text-primary mb-1">3D</p>
-      <p class="font-label-mono text-[11px] text-on-surface-variant tracking-widest">PRINTED</p>
-    </div>
-    <div class="stat-card rounded-xl p-6 text-center">
-      <p class="font-stat-mono text-stat-mono text-primary mb-1">100%</p>
-      <p class="font-label-mono text-[11px] text-on-surface-variant tracking-widest">CUSTOM FIT</p>
-    </div>
-    <div class="stat-card rounded-xl p-6 text-center">
-      <p class="font-stat-mono text-stat-mono text-primary mb-1">48H</p>
-      <p class="font-label-mono text-[11px] text-on-surface-variant tracking-widest">PRINT TIME</p>
-    </div>
-    <div class="stat-card rounded-xl p-6 text-center">
-      <p class="font-stat-mono text-stat-mono text-primary mb-1">ECO</p>
-      <p class="font-label-mono text-[11px] text-on-surface-variant tracking-widest">BIO-POLYMER</p>
-    </div>
-  </section>
+---
 
-  <!-- Featured Products -->
-  <section class="mb-24">
-    <div class="flex items-center justify-between mb-10">
-      <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-md text-primary">FEATURED DROPS</h2>
-      <a href="#" onclick="navigate('shop');return false;" class="font-label-mono text-label-mono text-secondary hover:text-primary transition-colors flex items-center gap-1">VIEW ALL <span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="glass-card rounded-xl overflow-hidden group">
-        <div class="relative aspect-square overflow-hidden bg-surface-container-low">
-          <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOni63HHxEdtaJFCm8-vMwB3m87UvKZvdxiR9hbNIHP-aNVUe2dPMfWyxSda6b_c3AedNbeGOid98hNnKmSy_oMBshPapyXKtda5BvILJFuh9cuijNgYxlCzZJwAYwbRxc3B2retDErapOa8MC_0IfjcE4Y1W_STCiHQCvMjxlYbPGKsAGw8_3dS9FoaOWeG1wyJVFDctN_ATw2rk2vDZDg0eMmowiCUJBDyoV6KFDJ0RC0NKZQBIYFOQDW9DTJX-Tujep9SECB-g" alt="KINETIC-01"/>
-          <div class="absolute top-4 left-4"><span class="px-2 py-1 bg-primary text-on-primary font-label-mono text-[10px] tracking-widest rounded-sm">BATCH 001</span></div>
-        </div>
-        <div class="p-6">
-          <div class="flex justify-between items-start mb-2">
-            <h3 class="font-headline-md text-body-lg text-primary tracking-tight">KINETIC-01</h3>
-            <span class="font-stat-mono text-primary text-body-md">$349</span>
-          </div>
-          <p class="text-on-surface-variant text-sm mb-4">Lattice-optimized sole for maximum energy return.</p>
-          <a href="#" onclick="navigate('shop');return false;" class="w-full py-3 neon-btn text-on-primary font-label-mono text-[12px] font-bold tracking-widest flex items-center justify-center gap-2">
-            <span class="material-symbols-outlined text-[16px]">bolt</span>CUSTOMIZE
-          </a>
-        </div>
-      </div>
-      <div class="glass-card rounded-xl overflow-hidden group">
-        <div class="relative aspect-square overflow-hidden bg-surface-container-low">
-          <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAImYqq3akRUelm7Am72xvo1gXIW4UgUaYp9_Tzjj4FzBNt-1DTIPBr5c9NR1G9yJOqG33I2JpSkgwiPKcdQB-QeEQ94jNBMJYihMElM6YewlzvWsfafc2aFOoxuY-mGG6xD4U9hpmStvgeKxmZNIAZOvX6lDBC6OstilwCDl91tyUNJJVREsaWjqSeO0ZlmdRSDR60WEF_t2ve9pVaHFt_GiB86-Z0XKxhjvXyx4B25Ot9Gze_5cAiYM0WEg8zF5E8bW6jEvcU-Oo" alt="FLUX GEN-2"/>
-          <div class="absolute top-4 left-4"><span class="px-2 py-1 bg-secondary-container text-on-secondary-container font-label-mono text-[10px] tracking-widest rounded-sm">LIMITED</span></div>
-        </div>
-        <div class="p-6">
-          <div class="flex justify-between items-start mb-2">
-            <h3 class="font-headline-md text-body-lg text-primary tracking-tight">FLUX GEN-2</h3>
-            <span class="font-stat-mono text-primary text-body-md">$410</span>
-          </div>
-          <p class="text-on-surface-variant text-sm mb-4">Organic structural support. Translucent outer shell.</p>
-          <a href="#" onclick="navigate('shop');return false;" class="w-full py-3 neon-btn text-on-primary font-label-mono text-[12px] font-bold tracking-widest flex items-center justify-center gap-2">
-            <span class="material-symbols-outlined text-[16px]">bolt</span>CUSTOMIZE
-          </a>
-        </div>
-      </div>
-      <div class="glass-card rounded-xl overflow-hidden group">
-        <div class="relative aspect-square overflow-hidden bg-surface-container-low">
-          <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgGOEsfZrj_O7Sgb8khUnS40elFOzAsFR-UPQYY66wlTeY9ePiWHSN3OIWIlXtEiMRux5l8aywfhtb0xj6Ctc3HAB_caFR_Ee5ZZqYRWFOukEJn8ZnG5yykxuV-F-7xSOz7_LNirZcQT-A-Pca5Mao7T2CUhESMSLbpIoCFxoWQFaSpcds7zaCqJ7u0e5f_utBPOes2Vc4LghX_hJajGM2eHxJVIaHBg92sRP679MRO61YiqMIamdA3K1WbpYG2CHoVggCOjUysDE" alt="OBSIDIAN-X"/>
-          <div class="absolute top-4 left-4"><span class="px-2 py-1 bg-surface-container-highest text-primary font-label-mono text-[10px] tracking-widest rounded-sm">ARTISAN</span></div>
-        </div>
-        <div class="p-6">
-          <div class="flex justify-between items-start mb-2">
-            <h3 class="font-headline-md text-body-lg text-primary tracking-tight">OBSIDIAN-X</h3>
-            <span class="font-stat-mono text-primary text-body-md">$525</span>
-          </div>
-          <p class="text-on-surface-variant text-sm mb-4">Hand-finished carbon composite. Peak digital craft.</p>
-          <a href="#" onclick="navigate('shop');return false;" class="w-full py-3 neon-btn text-on-primary font-label-mono text-[12px] font-bold tracking-widest flex items-center justify-center gap-2">
-            <span class="material-symbols-outlined text-[16px]">bolt</span>CUSTOMIZE
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
+## Deploy the static site to Vercel
 
-  <!-- CTA Banner -->
-  <section class="glass-card rounded-2xl p-12 text-center mb-12" style="border-color:rgba(0,240,255,0.2);">
-    <span class="material-symbols-outlined text-4xl text-secondary mb-4 block" style="font-variation-settings:'FILL' 1;">eco</span>
-    <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-md text-primary mb-4">BUILT FOR THE PLANET</h2>
-    <p class="font-body-lg text-on-surface-variant mb-8 max-w-xl mx-auto">Every SoleForge shoe uses bio-degradable polymer with zero landfill waste. Learn how we forge responsibly.</p>
-    <a href="#" onclick="navigate('eco');return false;" class="neon-btn px-8 py-3 font-label-mono text-label-mono text-on-primary font-bold tracking-widest inline-flex items-center gap-2">
-      <span class="material-symbols-outlined text-[18px]">eco</span>OUR ECO MISSION
-    </a>
-  </section>
+### Configure backend URL (one-line edit)
 
-</main>
-</div>
+The static HTML defaults to a preview backend URL. **Before deploying**, edit `index.html` and find this line near the bottom of the `<script>` block:
 
-<!-- ══════════════════════════════════════════════════
-     PAGE: SHOP
-══════════════════════════════════════════════════ -->
-<div id="sf-shop" class="sf-page">
-<main class="relative z-10 pt-32 pb-24 px-margin-mobile md:px-margin-desktop max-w-max-width mx-auto">
-<!-- Header & Intro -->
-<header class="mb-16">
-<h1 class="font-display-lg text-headline-lg-mobile md:text-display-lg text-primary mb-4">FORGED IN FLUX</h1>
-<p class="font-body-lg text-on-surface-variant max-w-2xl">Browse our Batch 001 collection of 3D-lattice engineered footwear. Each pair is algorithmically adjusted to your biometric footprint.</p>
-</header>
-<!-- Product View Section -->
-<div class="flex flex-col lg:flex-row gap-gutter">
-<!-- Filters Sidebar (Glass Pane) -->
-<aside class="w-full lg:w-64 flex-shrink-0">
-<div class="sticky top-32 glass-card rounded-xl p-6 space-y-8">
-<div class="flex items-center justify-between">
-<h3 class="font-label-mono text-label-mono text-primary font-bold">FILTERS</h3>
-<span class="material-symbols-outlined text-sm opacity-50">filter_list</span>
-</div>
-<!-- Material Filter -->
-<div class="space-y-4">
-<label class="font-label-mono text-[12px] opacity-60 uppercase">Material</label>
-<div class="flex flex-wrap gap-2">
-<button class="px-3 py-1 bg-primary/10 border border-primary/30 rounded-sm text-[10px] font-label-mono text-primary">CARBON LATTICE</button>
-<button class="px-3 py-1 bg-surface-container-high border border-white/10 rounded-sm text-[10px] font-label-mono text-on-surface-variant">BIO-POLYMER</button>
-<button class="px-3 py-1 bg-surface-container-high border border-white/10 rounded-sm text-[10px] font-label-mono text-on-surface-variant">FLUX-KNIT</button>
-</div>
-</div>
-<!-- Color Filter -->
-<div class="space-y-4">
-<label class="font-label-mono text-[12px] opacity-60 uppercase">Visual Identity</label>
-<div class="flex gap-3">
-<button class="w-6 h-6 rounded-full bg-[#00f0ff] ring-2 ring-primary ring-offset-2 ring-offset-background"></button>
-<button class="w-6 h-6 rounded-full bg-[#b600f8] ring-1 ring-white/20"></button>
-<button class="w-6 h-6 rounded-full bg-[#353437] ring-1 ring-white/20"></button>
-<button class="w-6 h-6 rounded-full bg-white ring-1 ring-white/20"></button>
-</div>
-</div>
-<!-- Size Filter -->
-<div class="space-y-4">
-<label class="font-label-mono text-[12px] opacity-60 uppercase">Metric Size (EU)</label>
-<div class="grid grid-cols-3 gap-2">
-<button class="p-2 border border-white/10 text-center font-label-mono text-[12px] hover:border-primary transition-colors">40</button>
-<button class="p-2 border border-white/10 text-center font-label-mono text-[12px] hover:border-primary transition-colors">41</button>
-<button class="p-2 border border-primary text-center font-label-mono text-[12px] bg-primary/5">42</button>
-<button class="p-2 border border-white/10 text-center font-label-mono text-[12px] hover:border-primary transition-colors">43</button>
-<button class="p-2 border border-white/10 text-center font-label-mono text-[12px] hover:border-primary transition-colors">44</button>
-<button class="p-2 border border-white/10 text-center font-label-mono text-[12px] hover:border-primary transition-colors">45</button>
-</div>
-</div>
-<button class="w-full py-3 bg-surface-container-highest border border-white/5 font-label-mono text-label-mono hover:bg-surface-variant transition-colors">RESET ALL</button>
-</div>
-</aside>
-<!-- Grid Container -->
-<section class="flex-grow">
-<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-<!-- Product Card 1 -->
-<div class="glass-card rounded-xl overflow-hidden group">
-<div class="relative aspect-square overflow-hidden bg-surface-container-low">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A futuristic 3D-printed sneaker with a complex electric cyan carbon lattice sole and a sleek black minimalist mesh upper. The shoe is showcased against a dark, tech-inspired studio background with subtle neon lens flares and geometric shadows. The aesthetic is high-performance, cyberpunk-infused athletic wear with sharp industrial focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOni63HHxEdtaJFCm8-vMwB3m87UvKZvdxiR9hbNIHP-aNVUe2dPMfWyxSda6b_c3AedNbeGOid98hNnKmSy_oMBshPapyXKtda5BvILJFuh9cuijNgYxlCzZJwAYwbRxc3B2retDErapOa8MC_0IfjcE4Y1W_STCiHQCvMjxlYbPGKsAGw8_3dS9FoaOWeG1wyJVFDctN_ATw2rk2vDZDg0eMmowiCUJBDyoV6KFDJ0RC0NKZQBIYFOQDW9DTJX-Tujep9SECB-g"/>
-<div class="absolute top-4 left-4">
-<span class="px-2 py-1 bg-primary text-on-primary font-label-mono text-[10px] tracking-widest rounded-sm">BATCH 001</span>
-</div>
-</div>
-<div class="p-6">
-<div class="flex justify-between items-start mb-2">
-<h3 class="font-headline-md text-body-lg text-primary tracking-tight">KINETIC-01</h3>
-<span class="font-stat-mono text-primary text-body-md">$349</span>
-</div>
-<p class="text-on-surface-variant text-sm mb-6 line-clamp-2">Lattice-optimized sole for maximum energy return. Bio-adaptive upper fabric.</p>
-<div class="flex gap-2 mb-6">
-<span class="px-2 py-0.5 border border-white/10 rounded-sm font-label-mono text-[10px] text-on-surface-variant">NEON CYAN</span>
-<span class="px-2 py-0.5 border border-white/10 rounded-sm font-label-mono text-[10px] text-on-surface-variant">LATTICE</span>
-</div>
-<button class="w-full py-4 neon-btn text-on-primary font-label-mono text-label-mono font-bold tracking-widest flex items-center justify-center gap-2">
-<span class="material-symbols-outlined text-[18px]">bolt</span>
-                                CUSTOMIZE
-                            </button>
-</div>
-</div>
-<!-- Product Card 2 -->
-<div class="glass-card rounded-xl overflow-hidden group">
-<div class="relative aspect-square overflow-hidden bg-surface-container-low">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A cutting-edge athletic shoe featuring a vibrant purple and neon pink bio-polymer sole with organic, 3D-printed textures. The shoe has a translucent white shell that reveals an intricate internal support structure. The lighting is dramatic and synthetic, emphasizing the sleek textures and cybernetic design in a high-tech artisan style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAImYqq3akRUelm7Am72xvo1gXIW4UgUaYp9_Tzjj4FzBNt-1DTIPBr5c9NR1G9yJOqG33I2JpSkgwiPKcdQB-QeEQ94jNBMJYihMElM6YewlzvWsfafc2aFOoxuY-mGG6xD4U9hpmStvgeKxmZNIAZOvX6lDBC6OstilwCDl91tyUNJJVREsaWjqSeO0ZlmdRSDR60WEF_t2ve9pVaHFt_GiB86-Z0XKxhjvXyx4B25Ot9Gze_5cAiYM0WEg8zF5E8bW6jEvcU-Oo"/>
-<div class="absolute top-4 left-4">
-<span class="px-2 py-1 bg-secondary-container text-on-secondary-container font-label-mono text-[10px] tracking-widest rounded-sm">LIMITED</span>
-</div>
-</div>
-<div class="p-6">
-<div class="flex justify-between items-start mb-2">
-<h3 class="font-headline-md text-body-lg text-primary tracking-tight">FLUX GEN-2</h3>
-<span class="font-stat-mono text-primary text-body-md">$410</span>
-</div>
-<p class="text-on-surface-variant text-sm mb-6 line-clamp-2">Organic structural support utilizing generative design. Translucent outer shell.</p>
-<div class="flex gap-2 mb-6">
-<span class="px-2 py-0.5 border border-white/10 rounded-sm font-label-mono text-[10px] text-on-surface-variant">PHANTOM</span>
-<span class="px-2 py-0.5 border border-white/10 rounded-sm font-label-mono text-[10px] text-on-surface-variant">GEN-DESIGN</span>
-</div>
-<button class="w-full py-4 neon-btn text-on-primary font-label-mono text-label-mono font-bold tracking-widest flex items-center justify-center gap-2">
-<span class="material-symbols-outlined text-[18px]">bolt</span>
-                                CUSTOMIZE
-                            </button>
-</div>
-</div>
-<!-- Product Card 3 -->
-<div class="glass-card rounded-xl overflow-hidden group">
-<div class="relative aspect-square overflow-hidden bg-surface-container-low">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Monochromatic obsidian black 3D-printed performance footwear with a deep-grooved technical tread and carbon fiber accents. The shoe reflects soft cyan studio lights, creating sharp highlights on its matte and gloss surfaces. Set in a minimalist digital atelier, the aesthetic is sophisticated, stealthy, and highly engineered." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgGOEsfZrj_O7Sgb8khUnS40elFOzAsFR-UPQYY66wlTeY9ePiWHSN3OIWIlXtEiMRux5l8aywfhtb0xj6Ctc3HAB_caFR_Ee5ZZqYRWFOukEJn8ZnG5yykxuV-F-7xSOz7_LNirZcQT-A-Pca5Mao7T2CUhESMSLbpIoCFxoWQFaSpcds7zaCqJ7u0e5f_utBPOes2Vc4LghX_hJajGM2eHxJVIaHBg92sRP679MRO61YiqMIamdA3K1WbpYG2CHoVggCOjUysDE"/>
-<div class="absolute top-4 left-4">
-<span class="px-2 py-1 bg-surface-container-highest text-primary font-label-mono text-[10px] tracking-widest rounded-sm">ARTISAN</span>
-</div>
-</div>
-<div class="p-6">
-<div class="flex justify-between items-start mb-2">
-<h3 class="font-headline-md text-body-lg text-primary tracking-tight">OBSIDIAN-X</h3>
-<span class="font-stat-mono text-primary text-body-md">$525</span>
-</div>
-<p class="text-on-surface-variant text-sm mb-6 line-clamp-2">Hand-finished carbon composite frame. The pinnacle of digital craftsmanship.</p>
-<div class="flex gap-2 mb-6">
-<span class="px-2 py-0.5 border border-white/10 rounded-sm font-label-mono text-[10px] text-on-surface-variant">STEALTH</span>
-<span class="px-2 py-0.5 border border-white/10 rounded-sm font-label-mono text-[10px] text-on-surface-variant">CARBON</span>
-</div>
-<button class="w-full py-4 neon-btn text-on-primary font-label-mono text-label-mono font-bold tracking-widest flex items-center justify-center gap-2">
-<span class="material-symbols-outlined text-[18px]">bolt</span>
-                                CUSTOMIZE
-                            </button>
-</div>
-</div>
-<!-- Product Card 4 -->
-<div class="glass-card rounded-xl overflow-hidden group">
-<div class="relative aspect-square overflow-hidden bg-surface-container-low">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A bright crimson 3D-printed shoe with a high-contrast white lattice midsole. The design features sharp, aggressive aerodynamic lines and a breathable technical mesh. The scene is a sterile, white high-key environment that makes the deep red color and the intricate 3D-printed details pop with professional clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOkZu1qDwVHczWoW2x5GMEzwKGhcukg_P7Dnrgi_tl2otlhMah5f0bt7oRCrgAzqX2bvjaykOwwPMf_RnaHOY6IJEvymnfeFh3UOXohNOk__HP2PVUZgT17L12X8aKTAyb7csRRIBzTK_h-oCVwaaMEkyeIijUVUwBv4fcWpF-RRCXeD47ESw9zt20SFFzXGb8pN9GCxl21oD5n1GWK0zqW6JbXWsPHff9BYaGKNZE9dcqwx8GspbtoyGmE_u2Csw7y4szzH52gm8"/>
-</div>
-<div class="p-6">
-<div class="flex justify-between items-start mb-2">
-<h3 class="font-headline-md text-body-lg text-primary tracking-tight">RED-SHIFT</h3>
-<span class="font-stat-mono text-primary text-body-md">$299</span>
-</div>
-<p class="text-on-surface-variant text-sm mb-6 line-clamp-2">Lightweight sprint-optimized geometry. High-ventilation 3D mesh architecture.</p>
-<div class="flex gap-2 mb-6">
-<span class="px-2 py-0.5 border border-white/10 rounded-sm font-label-mono text-[10px] text-on-surface-variant">CRIMSON</span>
-<span class="px-2 py-0.5 border border-white/10 rounded-sm font-label-mono text-[10px] text-on-surface-variant">POLY</span>
-</div>
-<button class="w-full py-4 neon-btn text-on-primary font-label-mono text-label-mono font-bold tracking-widest flex items-center justify-center gap-2">
-<span class="material-symbols-outlined text-[18px]">bolt</span>
-                                CUSTOMIZE
-                            </button>
-</div>
-</div>
-</div>
-</section>
-</div>
-</main>
-</div>
+```js
+const API_BASE = (window.SOLEFORGE_API || \"https://vercel-ready-13.preview.emergentagent.com\").replace(/\/$/, \"\");
+```
 
-<!-- ══════════════════════════════════════════════════
-     PAGE: STORY
-══════════════════════════════════════════════════ -->
-<div id="sf-story" class="sf-page">
-<main class="relative min-h-screen pt-40 pb-32">
-<!-- Atmospheric Background -->
-<div class="fixed inset-0 pointer-events-none z-0">
+Replace the URL with your deployed FastAPI backend URL (e.g. `https://api.soleforge.com`).
 
-<div class="absolute inset-0 bg-gradient-to-b from-transparent via-background/80 to-background"></div>
-</div>
-<!-- Hero Section -->
-<section class="relative z-10 px-margin-mobile md:px-margin-desktop max-w-max-width mx-auto mb-32">
-<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
-<div class="md:col-span-7">
-<div class="inline-block px-3 py-1 mb-6 rounded-sm bg-primary/10 border border-primary/20">
-<span class="font-label-mono text-label-mono text-primary tracking-widest">ARTISAN BATCH 001</span>
-</div>
-<h1 class="font-display-lg text-headline-lg-mobile md:text-display-lg mb-8 leading-none">THE DIGITAL <br/><span class="text-primary-fixed-dim">ATELIER.</span></h1>
-<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl mb-10">
-                        We didn't set out to build a shoe company. We set out to solve a biomechanical puzzle: How do you mass-produce the perfect fit for a unique human foot?
-                    </p>
-</div>
-<div class="md:col-span-5 flex justify-center">
-<div class="relative w-64 h-80 md:w-80 md:h-96 group">
-<div class="absolute -inset-1 bg-gradient-to-tr from-primary to-secondary rounded-xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-<div class="relative w-full h-full neon-glow-border rounded-xl overflow-hidden bg-surface-container">
-<img class="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-700" data-alt="A cinematic, high-contrast portrait of a visionary founder in a dark, high-tech studio. The lighting is low-key with sharp cyan rim light reflecting off his focused expression. The overall style is futuristic and minimalist, capturing the high-tech artisan philosophy with a palette of deep blacks and electric cyan accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6piGrAMfISMN1foJJuC4ERnyypR5b1C0pRCry-9oA7BPCajZC_TWXY7GmKo2n0Vp-edHqIFXSjhXH6k1k22K9ulXMXohgCBSyjS8IYxsojTRrHJONe7DSArtm6B00AuHzyb9vBlUtu-aOtbYRdE_pLg9L1WZ6HcL6e3IVZjn0CNiMJV7ASmFnOu1YkGwxioKkkZvjk0DXAnKkc4a2c4g1rD6d93HQQYmmeGG0verI521MfwfIxjtrvtYyvAcLIjeByZh_vOJVJ9s"/>
-</div>
-<div class="absolute -bottom-4 -right-4 glass-card p-4 rounded-lg">
-<p class="font-label-mono text-[12px] text-primary">FOUNDER / ARCHITECT</p>
-<p class="font-headline-md text-body-md">ELIAS VANCE</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Narrative Section -->
-<section class="relative z-10 px-margin-mobile md:px-margin-desktop max-w-max-width mx-auto mb-32">
-<div class="grid grid-cols-1 md:grid-cols-2 gap-24 items-start">
-<div class="space-y-12">
-<h2 class="font-headline-lg text-headline-lg">FROM GARAGE <br/>TO GLOBAL.</h2>
-<div class="prose prose-invert">
-<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                            In 2021, Elias Vance spent his nights in a damp London garage with three consumer-grade 3D printers and a stack of medical-grade elastomers. The goal was simple but impossible: print a shoe that felt like an extension of the skeletal structure.
-                        </p>
-<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed mt-6">
-                            Today, SoleForge operates at the intersection of generative design and sustainable craftsmanship. We don't hold inventory. We don't waste material. We forge every sole to order, unique to the coordinates of your movement.
-                        </p>
-</div>
-<button class="flex items-center gap-4 px-8 py-4 bg-primary-container text-on-primary-fixed font-label-mono text-label-mono rounded-full hover:shadow-[0_0_30px_rgba(0,240,255,0.5)] transition-all duration-300 active:scale-95 group">
-                        READ THE MANIFESTO
-                        <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_right_alt</span>
-</button>
-</div>
-<!-- Futuristic Timeline -->
-<div class="relative glass-card p-8 md:p-12 rounded-3xl overflow-hidden">
-<div class="absolute top-0 right-0 w-32 h-32 bg-primary/10 blur-3xl rounded-full"></div>
-<div class="relative z-10 space-y-16">
-<!-- Timeline Item 1 -->
-<div class="flex items-start gap-8">
-<div class="flex flex-col items-center">
-<span class="font-stat-mono text-stat-mono text-primary mb-2">2021</span>
-<div class="w-px h-24 timeline-line opacity-50"></div>
-</div>
-<div class="pt-1">
-<h4 class="font-label-mono text-label-mono text-primary-fixed tracking-widest mb-2">THE GARAGE ERA</h4>
-<p class="font-body-md text-body-md text-on-surface-variant">First successful 100% printed lattice midsole. Iteration #412.</p>
-<div class="mt-4 flex gap-2">
-<span class="px-2 py-1 bg-white/5 border border-white/10 rounded text-[10px] font-label-mono text-on-surface-variant">3D_MODEL_V1</span>
-<span class="px-2 py-1 bg-white/5 border border-white/10 rounded text-[10px] font-label-mono text-on-surface-variant">PLA_PROTOTYPE</span>
-</div>
-</div>
-</div>
-<!-- Timeline Item 2 -->
-<div class="flex items-start gap-8">
-<div class="flex flex-col items-center">
-<span class="font-stat-mono text-stat-mono text-primary mb-2">2023</span>
-<div class="w-px h-24 timeline-line opacity-50"></div>
-</div>
-<div class="pt-1">
-<h4 class="font-label-mono text-label-mono text-primary-fixed tracking-widest mb-2">THE FARM</h4>
-<p class="font-body-md text-body-md text-on-surface-variant">Relocation to a carbon-neutral 'Forge' in Berlin. 50 industrial printers active.</p>
-<div class="mt-4 flex gap-2">
-<span class="px-2 py-1 bg-white/5 border border-white/10 rounded text-[10px] font-label-mono text-on-surface-variant">SCALE_UP</span>
-<span class="px-2 py-1 bg-white/5 border border-white/10 rounded text-[10px] font-label-mono text-on-surface-variant">LATTICE_GEN_2</span>
-</div>
-</div>
-</div>
-<!-- Timeline Item 3 -->
-<div class="flex items-start gap-8">
-<div class="flex flex-col items-center">
-<span class="font-stat-mono text-stat-mono text-primary mb-2">2025</span>
-<div class="w-4 h-4 rounded-full bg-primary animate-pulse-glow shadow-[0_0_15px_rgba(0,240,255,0.8)] mt-2"></div>
-</div>
-<div class="pt-1">
-<h4 class="font-label-mono text-label-mono text-primary-fixed tracking-widest mb-2">GLOBAL REACH</h4>
-<p class="font-body-md text-body-md text-on-surface-variant">Decentralized manufacturing hubs in 12 major cities. Personalization at light speed.</p>
-<div class="mt-4 flex gap-2">
-<span class="px-2 py-1 bg-primary/20 border border-primary/30 rounded text-[10px] font-label-mono text-primary">LIVE_NOW</span>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Values Section - Bento Layout -->
-<section class="relative z-10 px-margin-mobile md:px-margin-desktop max-w-max-width mx-auto mb-32">
-<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
-<div class="glass-card p-10 rounded-3xl md:col-span-2">
-<span class="material-symbols-outlined text-primary text-4xl mb-6">eco</span>
-<h3 class="font-headline-md text-headline-md mb-4">Zero-Waste Engineering</h3>
-<p class="font-body-md text-body-md text-on-surface-variant max-w-lg">
-                        Traditional footwear manufacturing wastes up to 30% of materials. In our Forge, we use additive manufacturing to ensure that every gram of material used is a gram of performance under your feet.
-                    </p>
-</div>
-<div class="glass-card p-10 rounded-3xl flex flex-col justify-end relative overflow-hidden group">
-<div class="absolute inset-0 opacity-20 group-hover:scale-110 transition-transform duration-700">
-<img class="w-full h-full object-cover" data-alt="Macro close-up of a complex 3D printed lattice structure for a shoe midsole. The material is a translucent, technical elastomer with glowing cyan backlighting that highlights the intricate geometric patterns. High-tech minimalist aesthetic with deep shadows and synthetic light highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAecnzHbbPXSclatNWyNhb3jxmekvhT3Bl6rd673YVXSauCCxMdltfj8xE6t8Xr317Dke9J_zsScrurvesxH7ubR-YMmhgiDOOGXF0YnQ9N0ABBiVKMfJeteYim051h0_l5DnkcmTkwZqNpwEzRxP1Lj2bmWeVP7EobmoIEJJ0Sv9E_-Q3D-ceFQ4Zq5dNr8DfxrtyjFQoNoGIUD4X_okVK4cmGNxSVc_LHESK12vKurGHPIsfnjvbyJp-VUltkcY7B1lgpGyYfgs"/>
-</div>
-<div class="relative z-10">
-<h3 class="font-label-mono text-label-mono text-primary mb-2">TECH STACK</h3>
-<p class="font-stat-mono text-stat-mono">CARBON DLS™</p>
-</div>
-</div>
-</div>
-</section>
-</main>
-</div>
+**OR** — add this `<script>` tag in `<head>` before the main script:
 
-<!-- ══════════════════════════════════════════════════
-     PAGE: ECO
-══════════════════════════════════════════════════ -->
-<div id="sf-eco" class="sf-page">
-<main class="relative pt-32 pb-24 px-margin-mobile md:px-margin-desktop max-w-max-width mx-auto">
-<!-- Hero Section -->
-<section class="mb-24">
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-<div>
-<span class="font-label-mono text-label-mono text-neon-green mb-4 block tracking-widest uppercase">Artisan Batch 001 / Sustainability</span>
-<h2 class="font-display-lg text-[48px] md:text-display-lg leading-tight mb-6">ENGINEERING A <span class="text-primary-container">ZERO-FOOTPRINT</span> FUTURE.</h2>
-<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl mb-8">
-                        We don't just make shoes; we synthesize them. By merging 3D-printing precision with recycled oceanic polymers, we've eliminated the concept of "overstock."
-                    </p>
-<div class="flex flex-wrap gap-4">
-<button class="bg-primary-container text-on-primary-fixed font-label-mono text-label-mono px-8 py-4 rounded-full neon-glow-cyan hover:scale-105 transition-all">OUR PROCESS</button>
-<button class="glass-panel text-primary font-label-mono text-label-mono px-8 py-4 rounded-full border border-primary/20 hover:bg-primary/10 transition-all">TECH SPEC</button>
-</div>
-</div>
-<div class="relative group">
-<div class="absolute -inset-4 bg-primary/20 blur-3xl rounded-full opacity-30 group-hover:opacity-50 transition-opacity"></div>
-<img class="relative w-full rounded-2xl border border-white/10 shadow-2xl animate-float" data-alt="A high-tech cinematic close-up of a futuristic 3D printed sneaker sole with a complex lattice structure. The shoe is illuminated by vibrant neon cyan and soft green laser lines in a dark, obsidian-like digital atelier. The atmosphere is sophisticated and performance-driven, showcasing recycled oceanic polymer textures and precision engineering." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-qvplIyEqhGMJ2YRrZ9SRJcVZARxEJXPi6apE_KZFdk1xtcwS2V_EEvHaqaeDgW3rv3Dz-0APN_GttEcp-2c_kEZbLw4VOB6aaRUzJuao-7rArRVR0z2sjKdirb12B0phD3cm37I70N-k5ktL1d9__Rmde7LP7ogVv-kvE5Y3nonBprhGVfs3gNaqU7ukBHD0iVfzGBmczIz_EO1E6AYFjXyWj6xHGkMGQPBQSv8qcLV9IB5_clFOysi3f6tPR31NMgtAozZPFQc"/>
-<div class="absolute bottom-4 left-4 glass-panel p-4 rounded-xl border border-neon-green/30">
-<p class="font-label-mono text-[12px] text-neon-green">STATUS: 100% RECYCLED POLYMER</p>
-</div>
-</div>
-</div>
-</section>
-<!-- Stats Section (Bento Style) -->
-<section class="mb-32">
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-<!-- Stat 1 -->
-<div class="glass-panel p-8 rounded-2xl border-l-4 border-l-primary-container">
-<h3 class="font-stat-mono text-stat-mono text-primary-container mb-2" id="stat-waste">0%</h3>
-<p class="font-label-mono text-label-mono text-on-surface mb-2 uppercase">Manufacturing Waste</p>
-<p class="font-body-md text-body-md text-on-surface-variant">On-demand additive manufacturing ensures zero material scrap during production.</p>
-</div>
-<!-- Stat 2 -->
-<div class="glass-panel p-8 rounded-2xl border-l-4 border-l-neon-green">
-<h3 class="font-stat-mono text-stat-mono text-neon-green mb-2" id="stat-recycled">100%</h3>
-<p class="font-label-mono text-label-mono text-on-surface mb-2 uppercase">Recycled Filament</p>
-<p class="font-body-md text-body-md text-on-surface-variant">Sourced exclusively from recovered maritime plastic and post-industrial nylon.</p>
-</div>
-<!-- Stat 3 -->
-<div class="glass-panel p-8 rounded-2xl border-l-4 border-l-secondary">
-<h3 class="font-stat-mono text-stat-mono text-secondary mb-2" id="stat-energy">85%</h3>
-<p class="font-label-mono text-label-mono text-on-surface mb-2 uppercase">Energy Reduction</p>
-<p class="font-body-md text-body-md text-on-surface-variant">Localized micro-factories eliminate global shipping carbon overhead.</p>
-</div>
-</div>
-</section>
-<!-- Product Spotlight (Asymmetric) -->
-<section class="mb-32 relative overflow-hidden py-16 rounded-3xl border border-white/5">
-<div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center px-8">
-<div class="md:col-span-5">
-<h3 class="font-headline-lg text-headline-lg mb-6">CARBON <span class="text-secondary">LATTICE</span> TECH</h3>
-<div class="space-y-6">
-<details class="group glass-panel rounded-xl overflow-hidden" open="">
-<summary class="flex justify-between items-center p-4 cursor-pointer font-label-mono text-label-mono text-primary list-none">
-                                MATERIAL ORIGIN
-                                <span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
-</summary>
-<div class="p-4 pt-0 font-body-md text-on-surface-variant border-t border-white/5">
-                                Our filament is harvested from discarded fishing nets in the North Sea, chemically depolymerized, and spun into high-tensile 3D-printing thread.
-                            </div>
-</details>
-<details class="group glass-panel rounded-xl overflow-hidden">
-<summary class="flex justify-between items-center p-4 cursor-pointer font-label-mono text-label-mono text-primary list-none">
-                                ON-DEMAND PRINTING
-                                <span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
-</summary>
-<div class="p-4 pt-0 font-body-md text-on-surface-variant border-t border-white/5">
-                                We print only what is ordered. No warehouses, no clearance sales, no landfills. Each pair is built for its specific owner.
-                            </div>
-</details>
-</div>
-</div>
-<div class="md:col-span-7 relative">
-<div class="aspect-square w-full glass-panel rounded-full flex items-center justify-center p-12 border border-secondary/20 relative overflow-hidden">
-<img class="w-full h-auto object-contain drop-shadow-[0_0_30px_rgba(235,178,255,0.4)]" data-alt="A side view of a vibrant red performance sneaker featuring a futuristic translucent carbon-lattice mid-sole. The shoe is floating in a minimalist black space with geometric green light patterns reflecting off the polished obsidian floor. High-contrast studio lighting emphasizes the sleek, modern design and sustainable material textures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtrv_roHWdui09Av6o18DtjxXYUamfoA_frIa4XwiDu8e3jvL9W3pYHdKXxYDpOvmk9DJJ8zEEZ6J8hmW2YbyTAQSdauyu2UcG0hb6zlCHERjMTdrlwwDTmt-a-QtaQfnTV4lBalPKz3X9kWBth67d1mWSPoSLKYlwqk1RzxM4mku4n1DglLywSGX6Sk1CsH61h--kPSHTMGOyvVYgPdSxRJZ_voOueRq5vRwh6KWTXWR_Qt_aIVQtEO1i-s3S1QSXIAybNXI-Z_Y"/>
-</div>
-</div>
-</div>
-</section>
-<!-- CTA Section -->
-<section class="glass-panel p-12 rounded-[40px] text-center border-t-2 border-t-neon-green/40">
-<h2 class="font-headline-lg text-headline-lg mb-4">JOIN THE BATCH 001 WAITLIST</h2>
-<p class="font-body-lg text-body-lg text-on-surface-variant mb-10 max-w-2xl mx-auto">Limited production slots available for our first sustainable drop. Be part of the synthetic revolution.</p>
-<div class="max-w-md mx-auto flex flex-col sm:flex-row gap-4">
-<input class="flex-grow bg-surface-container-lowest border-b border-primary/40 focus:border-neon-green focus:ring-0 text-primary font-label-mono px-4 py-3 transition-all outline-none" placeholder="ENTER TERMINAL EMAIL" type="email"/>
-<button class="bg-primary-container text-on-primary-fixed px-8 py-3 rounded-lg font-label-mono text-label-mono neon-glow-cyan hover:scale-105 transition-all">INITIALIZE</button>
-</div>
-</section>
-</main>
-</div>
+```html
+<script>window.SOLEFORGE_API = \"https://api.soleforge.com\";</script>
+```
 
-<!-- ══════════════════════════════════════════════════
-     PAGE: CART
-══════════════════════════════════════════════════ -->
-<div id="sf-cart" class="sf-page">
-<main class="relative z-10 pt-36 pb-32 px-6 md:px-16 max-w-[1440px] mx-auto">
-  <header class="mb-12">
-    <h1 class="font-display-lg text-headline-lg-mobile md:text-headline-md text-primary mb-2">YOUR CART</h1>
-    <p class="font-body-md text-on-surface-variant" id="cart-count">3 items ready to forge</p>
-  </header>
+### Three ways to deploy
 
-  <div class="flex flex-col lg:flex-row gap-8">
-    <!-- Cart Items -->
-    <div class="flex-grow space-y-4" id="cart-items">
+**1. Drag & drop (easiest)** — go to https://vercel.com/new → drop the folder → Framework: *Other* → Deploy.
 
-      <!-- Item 1 -->
-      <div class="glass-card rounded-xl p-5 flex gap-5 items-center" data-price="349" data-id="1">
-        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOni63HHxEdtaJFCm8-vMwB3m87UvKZvdxiR9hbNIHP-aNVUe2dPMfWyxSda6b_c3AedNbeGOid98hNnKmSy_oMBshPapyXKtda5BvILJFuh9cuijNgYxlCzZJwAYwbRxc3B2retDErapOa8MC_0IfjcE4Y1W_STCiHQCvMjxlYbPGKsAGw8_3dS9FoaOWeG1wyJVFDctN_ATw2rk2vDZDg0eMmowiCUJBDyoV6KFDJ0RC0NKZQBIYFOQDW9DTJX-Tujep9SECB-g" alt="KINETIC-01" class="w-20 h-20 object-cover rounded-lg flex-shrink-0"/>
-        <div class="flex-grow min-w-0">
-          <div class="flex justify-between items-start mb-1">
-            <h3 class="font-headline-md text-body-lg text-primary tracking-tight">KINETIC-01</h3>
-            <span class="font-stat-mono text-primary item-total">$349</span>
-          </div>
-          <p class="text-on-surface-variant text-sm mb-3">NEON CYAN · EU 42 · LATTICE</p>
-          <div class="flex items-center gap-3">
-            <button class="qty-btn rounded-sm qty-minus">−</button>
-            <span class="font-stat-mono text-primary text-body-md w-6 text-center qty-val">1</span>
-            <button class="qty-btn rounded-sm qty-plus">+</button>
-            <button class="ml-auto material-symbols-outlined text-on-surface-variant/50 hover:text-error transition-colors text-[20px] remove-item">delete</button>
-          </div>
-        </div>
-      </div>
+**2. Vercel CLI**
+```bash
+npm i -g vercel
+cd soleforge-vercel
+vercel --prod
+```
 
-      <!-- Item 2 -->
-      <div class="glass-card rounded-xl p-5 flex gap-5 items-center" data-price="410" data-id="2">
-        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAImYqq3akRUelm7Am72xvo1gXIW4UgUaYp9_Tzjj4FzBNt-1DTIPBr5c9NR1G9yJOqG33I2JpSkgwiPKcdQB-QeEQ94jNBMJYihMElM6YewlzvWsfafc2aFOoxuY-mGG6xD4U9hpmStvgeKxmZNIAZOvX6lDBC6OstilwCDl91tyUNJJVREsaWjqSeO0ZlmdRSDR60WEF_t2ve9pVaHFt_GiB86-Z0XKxhjvXyx4B25Ot9Gze_5cAiYM0WEg8zF5E8bW6jEvcU-Oo" alt="FLUX GEN-2" class="w-20 h-20 object-cover rounded-lg flex-shrink-0"/>
-        <div class="flex-grow min-w-0">
-          <div class="flex justify-between items-start mb-1">
-            <h3 class="font-headline-md text-body-lg text-primary tracking-tight">FLUX GEN-2</h3>
-            <span class="font-stat-mono text-primary item-total">$410</span>
-          </div>
-          <p class="text-on-surface-variant text-sm mb-3">PHANTOM · EU 41 · GEN-DESIGN</p>
-          <div class="flex items-center gap-3">
-            <button class="qty-btn rounded-sm qty-minus">−</button>
-            <span class="font-stat-mono text-primary text-body-md w-6 text-center qty-val">1</span>
-            <button class="qty-btn rounded-sm qty-plus">+</button>
-            <button class="ml-auto material-symbols-outlined text-on-surface-variant/50 hover:text-error transition-colors text-[20px] remove-item">delete</button>
-          </div>
-        </div>
-      </div>
+**3. GitHub + Vercel** — push folder to a repo → Import on vercel.com → Deploy.
 
-      <!-- Item 3 -->
-      <div class="glass-card rounded-xl p-5 flex gap-5 items-center" data-price="525" data-id="3">
-        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgGOEsfZrj_O7Sgb8khUnS40elFOzAsFR-UPQYY66wlTeY9ePiWHSN3OIWIlXtEiMRux5l8aywfhtb0xj6Ctc3HAB_caFR_Ee5ZZqYRWFOukEJn8ZnG5yykxuV-F-7xSOz7_LNirZcQT-A-Pca5Mao7T2CUhESMSLbpIoCFxoWQFaSpcds7zaCqJ7u0e5f_utBPOes2Vc4LghX_hJajGM2eHxJVIaHBg92sRP679MRO61YiqMIamdA3K1WbpYG2CHoVggCOjUysDE" alt="OBSIDIAN-X" class="w-20 h-20 object-cover rounded-lg flex-shrink-0"/>
-        <div class="flex-grow min-w-0">
-          <div class="flex justify-between items-start mb-1">
-            <h3 class="font-headline-md text-body-lg text-primary tracking-tight">OBSIDIAN-X</h3>
-            <span class="font-stat-mono text-primary item-total">$525</span>
-          </div>
-          <p class="text-on-surface-variant text-sm mb-3">STEALTH · EU 43 · CARBON</p>
-          <div class="flex items-center gap-3">
-            <button class="qty-btn rounded-sm qty-minus">−</button>
-            <span class="font-stat-mono text-primary text-body-md w-6 text-center qty-val">1</span>
-            <button class="qty-btn rounded-sm qty-plus">+</button>
-            <button class="ml-auto material-symbols-outlined text-on-surface-variant/50 hover:text-error transition-colors text-[20px] remove-item">delete</button>
-          </div>
-        </div>
-      </div>
+No build step, no install. Vercel just serves `index.html`.
 
-      <!-- Empty State (hidden by default) -->
-      <div id="empty-cart" class="hidden glass-card rounded-xl p-16 text-center">
-        <span class="material-symbols-outlined text-5xl text-on-surface-variant/30 mb-4 block">shopping_cart</span>
-        <p class="font-headline-md text-body-lg text-on-surface-variant mb-6">Your cart is empty</p>
-        <a href="#" onclick="navigate('shop');return false;" class="neon-btn px-8 py-3 font-label-mono text-label-mono text-on-primary font-bold tracking-widest inline-flex items-center gap-2">
-          <span class="material-symbols-outlined text-[18px]">bolt</span>START SHOPPING
-        </a>
-      </div>
-    </div>
+### Local preview
+```bash
+cd soleforge-vercel
+python3 -m http.server 3000
+# open http://localhost:3000
+```
 
-    <!-- Order Summary -->
-    <div class="w-full lg:w-80 flex-shrink-0">
-      <div class="glass-card rounded-xl p-6 sticky top-32" style="border-color:rgba(0,240,255,0.2);">
-        <h2 class="font-label-mono text-label-mono text-primary tracking-widest mb-6">ORDER SUMMARY</h2>
-        <div class="space-y-3 mb-6 text-sm">
-          <div class="flex justify-between">
-            <span class="text-on-surface-variant">Subtotal</span>
-            <span class="font-stat-mono text-primary" id="subtotal">$1,284</span>
-          </div>
-          <div class="flex justify-between">
-            <span class="text-on-surface-variant">Shipping</span>
-            <span class="font-stat-mono text-primary">$12</span>
-          </div>
-          <div class="flex justify-between">
-            <span class="text-on-surface-variant">Est. Tax</span>
-            <span class="font-stat-mono text-primary" id="tax">$115</span>
-          </div>
-          <!-- Promo Code -->
-          <div class="pt-3 border-t border-white/10">
-            <label class="font-label-mono text-[11px] text-on-surface-variant/60 tracking-widest mb-2 block">PROMO CODE</label>
-            <div class="flex gap-2">
-              <input id="promo-input" type="text" placeholder="FORGE2024" class="flex-grow bg-surface-container-low border border-white/10 rounded-sm px-3 py-2 font-label-mono text-[12px] text-primary placeholder-on-surface-variant/30 focus:outline-none focus:border-primary/50"/>
-              <button id="promo-btn" class="px-3 py-2 border border-primary/30 font-label-mono text-[11px] text-primary hover:border-primary transition-colors rounded-sm">APPLY</button>
-            </div>
-            <p id="promo-msg" class="text-[11px] mt-1 hidden"></p>
-          </div>
-        </div>
-        <div class="border-t border-white/10 pt-4 mb-6 flex justify-between items-center">
-          <span class="font-label-mono text-label-mono text-on-surface">TOTAL</span>
-          <span class="font-stat-mono text-stat-mono text-primary" id="total">$1,411</span>
-        </div>
-        <button onclick="alert('Checkout coming soon! Integrate Stripe or PayPal here.')" class="w-full py-4 neon-btn text-on-primary font-label-mono text-label-mono font-bold tracking-widest flex items-center justify-center gap-2">
-          <span class="material-symbols-outlined text-[18px]">lock</span>SECURE CHECKOUT
-        </button>
-        <a href="#" onclick="navigate('shop');return false;" class="block text-center mt-4 font-label-mono text-[11px] text-on-surface-variant/50 hover:text-primary transition-colors tracking-widest">← CONTINUE SHOPPING</a>
-        <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-center gap-2">
-          <span class="material-symbols-outlined text-[16px] text-on-surface-variant/40">eco</span>
-          <span class="font-label-mono text-[10px] text-on-surface-variant/40 tracking-wider">CARBON-NEUTRAL SHIPPING</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</main>
-</div>
+---
 
-<!-- ══════════════════════════════════════════════════
-     PAGE: CONTACT
-══════════════════════════════════════════════════ -->
-<div id="sf-contact" class="sf-page">
-<main class="pt-40 pb-20 relative min-h-screen">
-<!-- Background Decorations -->
-<div class="absolute top-0 left-0 w-full h-full cyber-grid opacity-20 pointer-events-none"></div>
-<div class="absolute -top-20 -left-20 w-96 h-96 bg-primary-container/10 blur-[120px] rounded-full pointer-events-none"></div>
-<div class="absolute top-1/2 right-0 w-[500px] h-[500px] bg-secondary-container/5 blur-[150px] rounded-full pointer-events-none"></div>
-<div class="max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-1 lg:grid-cols-12 gap-gutter relative z-10">
-<!-- Left Column: FAQ Section -->
-<section class="lg:col-span-7">
-<div class="mb-12">
-<span class="font-label-mono text-label-mono text-primary-fixed-dim mb-4 block uppercase tracking-widest">Protocol Support</span>
-<h2 class="font-headline-lg text-headline-lg mb-4">Frequently Asked <span class="text-primary-fixed-dim">Questions</span></h2>
-<p class="text-on-surface-variant font-body-lg text-body-lg max-w-xl">Find rapid resolutions for common inquiries regarding our digital atelier and artisan footwear engineering.</p>
-</div>
-<div class="faq-accordion space-y-4">
-<!-- FAQ Item 1 -->
-<div class="faq-item glass-panel p-6 rounded-xl cursor-pointer transition-all duration-300 group" onclick="toggleFaq(this)">
-<div class="flex justify-between items-center">
-<h3 class="font-headline-md text-body-lg text-primary transition-colors">How does Batch 001 manufacturing work?</h3>
-<span class="material-symbols-outlined chevron-icon transition-transform duration-300">expand_more</span>
-</div>
-<div class="faq-content text-on-surface-variant/80 font-body-md text-body-md leading-relaxed">
-                            Each pair in Batch 001 is individualy engineered using high-precision additive manufacturing. This ensures a zero-waste process where the carbon lattice midsole is optimized for your specific gait data, resulting in a shoe that is uniquely yours.
-                        </div>
-</div>
-<!-- FAQ Item 2 -->
-<div class="faq-item glass-panel p-6 rounded-xl cursor-pointer transition-all duration-300 group" onclick="toggleFaq(this)">
-<div class="flex justify-between items-center">
-<h3 class="font-headline-md text-body-lg text-on-surface transition-colors">What is the shipping protocol for global orders?</h3>
-<span class="material-symbols-outlined chevron-icon transition-transform duration-300">expand_more</span>
-</div>
-<div class="faq-content text-on-surface-variant/80 font-body-md text-body-md leading-relaxed">
-                            We ship globally via secure, carbon-neutral logistics providers. Each shipment is tracked in real-time through our digital dashboard. Delivery times vary between 7-14 cycles depending on your orbital location.
-                        </div>
-</div>
-<!-- FAQ Item 3 -->
-<div class="faq-item glass-panel p-6 rounded-xl cursor-pointer transition-all duration-300 group active" onclick="toggleFaq(this)">
-<div class="flex justify-between items-center">
-<h3 class="font-headline-md text-body-lg text-primary transition-colors">Can I return my custom-forged footwear?</h3>
-<span class="material-symbols-outlined chevron-icon transition-transform duration-300 rotate-180 text-primary">expand_more</span>
-</div>
-<div class="faq-content text-on-surface-variant/80 font-body-md text-body-md leading-relaxed block opacity-100 max-h-[500px] pt-4">
-                            Due to the highly personalized nature of SoleForge footwear, we typically do not accept returns. However, we offer a "Refit Guarantee." If the fit isn't perfect, return them for a technical adjustment or a complete re-printing of the internal structure.
-                        </div>
-</div>
-<!-- FAQ Item 4 -->
-<div class="faq-item glass-panel p-6 rounded-xl cursor-pointer transition-all duration-300 group" onclick="toggleFaq(this)">
-<div class="flex justify-between items-center">
-<h3 class="font-headline-md text-body-lg text-on-surface transition-colors">What materials are used in the Bio-Synth uppers?</h3>
-<span class="material-symbols-outlined chevron-icon transition-transform duration-300">expand_more</span>
-</div>
-<div class="faq-content text-on-surface-variant/80 font-body-md text-body-md leading-relaxed">
-                            Our uppers are woven from a proprietary blend of recycled ocean plastics and lab-grown bio-fibers. They offer 40% higher breathability than standard performance textiles while maintaining structural integrity over 1,000 miles of use.
-                        </div>
-</div>
-</div>
-</section>
-<!-- Right Column: Contact Form -->
-<section class="lg:col-span-5">
-<div class="glass-panel p-8 md:p-10 rounded-2xl relative overflow-hidden">
-<!-- Subtle Glow in corner of form -->
-<div class="absolute -bottom-10 -right-10 w-40 h-40 bg-primary/20 blur-3xl pointer-events-none"></div>
-<h2 class="font-headline-md text-headline-md mb-2">Direct <span class="text-primary-container">Uplink</span></h2>
-<p class="text-on-surface-variant font-body-md text-body-md mb-8">Send a transmission to our engineering team. Average response time: <span class="font-label-mono text-primary">4.2 HOURS</span>.</p>
-<form class="space-y-8" id="contactForm">
-<div class="space-y-1">
-<label class="font-label-mono text-label-mono text-on-surface-variant uppercase text-xs tracking-widest">Identify / Name</label>
-<input class="w-full glowing-input py-3 text-on-surface placeholder:text-outline-variant" placeholder="CITIZEN_402" type="text"/>
-</div>
-<div class="space-y-1">
-<label class="font-label-mono text-label-mono text-on-surface-variant uppercase text-xs tracking-widest">Signal / Email</label>
-<input class="w-full glowing-input py-3 text-on-surface placeholder:text-outline-variant" placeholder="ENCRYPTED@PROTOCOL.COM" type="email"/>
-</div>
-<div class="space-y-1">
-<label class="font-label-mono text-label-mono text-on-surface-variant uppercase text-xs tracking-widest">Frequency / Subject</label>
-<select class="w-full glowing-input py-3 text-on-surface bg-transparent appearance-none">
-<option class="bg-surface text-on-surface">Order Transmission</option>
-<option class="bg-surface text-on-surface">Technical Support</option>
-<option class="bg-surface text-on-surface">Batch Inquiries</option>
-<option class="bg-surface text-on-surface">Press &amp; Comms</option>
-</select>
-</div>
-<div class="space-y-1">
-<label class="font-label-mono text-label-mono text-on-surface-variant uppercase text-xs tracking-widest">Message Data</label>
-<textarea class="w-full glowing-input py-3 text-on-surface placeholder:text-outline-variant resize-none" placeholder="DESCRIBE YOUR REQUEST..." rows="4"></textarea>
-</div>
-<button class="w-full py-4 neon-glow-btn text-background font-label-mono font-bold tracking-widest flex items-center justify-center gap-2 group" type="submit">
-<span>INITIATE SEND</span>
-<span class="material-symbols-outlined text-xl transition-transform group-hover:translate-x-1">bolt</span>
-</button>
-</form>
-<!-- Contact Details Badges -->
-<div class="mt-10 pt-10 border-t border-white/5 grid grid-cols-2 gap-4">
-<div class="space-y-1">
-<p class="font-label-mono text-[10px] text-outline tracking-widest uppercase">Location</p>
-<p class="text-on-surface font-body-md text-sm">Neosaka Foundry, Sect 07</p>
-</div>
-<div class="space-y-1 text-right">
-<p class="font-label-mono text-[10px] text-outline tracking-widest uppercase">Global Terminal</p>
-<p class="text-primary font-label-mono text-sm underline cursor-pointer">+1 (800) SOLEFORGE</p>
-</div>
-</div>
-</div>
-<!-- Small Visual teaser -->
-<div class="mt-6 rounded-xl overflow-hidden glass-panel h-48 relative group">
-<img class="w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity duration-500" data-alt="A high-tech digital atelier workspace featuring glowing holographic displays of 3D shoe lattices. The environment is dark and moody with sharp neon cyan lighting illuminating sleek carbon fiber surfaces. A robotic arm is seen in the background performing precision assembly on a futuristic shoe model. The overall aesthetic is cyberpunk minimalism with an emphasis on advanced technology and artisan craftsmanship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgF5Uoy8rWFDBlX3Pax7IeEhhxptW3SIrLMy_w_OhoxKsV6Rf5zHm1E5Gn8V38R8XQLBJ4Hv8cfnzsL1fgPkbj7A3qrt6Q3zWt0uRO8zqp_URImhrNGHRSNOKcAfCNLPBuHjd6p5TupxpZ5iCZ3K1NytGZ0UeditlaB1acdbug5_8CXeblb1ihL_FngmRV10LujnN8CgJ6K0KiP8s77dWnLeZ4PGCF1-U1Dosz5mz5wQqCxPrM41_kJuuvHMdAwt20TNxGx7ZoyAE"/>
-<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-<span class="font-label-mono text-label-mono border border-primary/40 bg-background/60 backdrop-blur-md px-4 py-2 rounded-full text-primary-container">VISIT LABS</span>
-</div>
-</div>
-</section>
-</div>
-</main>
-</div>
+## Deploying the backend (FastAPI + MongoDB)
 
-<!-- MOBILE BOTTOM NAV -->
-<nav class="md:hidden fixed bottom-0 w-full z-50 flex justify-around items-center py-3 px-4 bg-surface/20 backdrop-blur-md border-t border-primary/20 shadow-[0_-5px_25px_rgba(0,240,255,0.15)]">
-  <a href="#" onclick="navigate('home');return false;" class="mobile-nav-link" data-navpage="home">
-    <span class="material-symbols-outlined">home</span><span class="font-label-mono text-[10px]">Home</span>
-  </a>
-  <a href="#" onclick="navigate('shop');return false;" class="mobile-nav-link" data-navpage="shop">
-    <span class="material-symbols-outlined">storefront</span><span class="font-label-mono text-[10px]">Shop</span>
-  </a>
-  <a href="#" onclick="navigate('story');return false;" class="mobile-nav-link" data-navpage="story">
-    <span class="material-symbols-outlined">auto_awesome</span><span class="font-label-mono text-[10px]">Story</span>
-  </a>
-  <a href="#" onclick="navigate('cart');return false;" class="mobile-nav-link" data-navpage="cart">
-    <span class="material-symbols-outlined">shopping_cart</span><span class="font-label-mono text-[10px]">Cart</span>
-  </a>
-</nav>
+The backend is **not** in this folder. It lives at `/app/backend` in the parent project and is currently running locally on the preview pod. To deploy it standalone:
 
-<!-- SHARED FOOTER -->
-<footer class="relative z-10 w-full py-12 px-6 md:px-16 flex flex-col md:flex-row justify-between items-center gap-6 border-t border-white/5 bg-surface-container-lowest">
-  <div class="flex flex-col items-center md:items-start gap-2">
-    <span class="font-label-mono text-primary-fixed">SOLEFORGE</span>
-    <span class="text-on-surface-variant/60 text-sm">© 2024 SOLEFORGE. ARTISAN BATCH 001.</span>
-  </div>
-  <div class="flex gap-8">
-    <a href="#" onclick="navigate('eco');return false;" class="text-on-surface-variant hover:text-primary transition-colors text-sm">Sustainability</a>
-    <a href="#" onclick="navigate('contact');return false;" class="text-on-surface-variant hover:text-primary transition-colors text-sm">Contact</a>
-    <a href="#" class="text-on-surface-variant hover:text-primary transition-colors text-sm">Privacy</a>
-  </div>
-</footer>
+### Required environment variables
+```
+MONGO_URL=mongodb+srv://...           # MongoDB Atlas free tier works
+DB_NAME=soleforge
+CORS_ORIGINS=https://your-vercel-domain.vercel.app
+STRIPE_API_KEY=sk_test_emergent       # test key — replace with sk_live_... for prod
+```
 
-<!-- ROADMAP MODAL -->
-<div id="roadmap-modal" class="fixed inset-0 z-[200] flex items-center justify-center hidden">
-  <div id="roadmap-backdrop" class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
-  <div class="relative z-10 w-full max-w-3xl max-h-[90vh] mx-4 glass-card rounded-xl overflow-hidden flex flex-col" style="border-color:rgba(0,240,255,0.3);box-shadow:0 0 60px rgba(0,240,255,0.15);">
-    <div class="flex items-center justify-between px-8 py-5 border-b border-white/10">
-      <div class="flex items-center gap-3">
-        <span class="material-symbols-outlined text-secondary text-2xl" style="font-variation-settings:'FILL' 1;">rocket_launch</span>
-        <span class="font-display-lg text-headline-md text-primary tracking-tighter">SOLEFORGE FEATURE ROADMAP</span>
-      </div>
-      <button id="close-roadmap" class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors text-2xl">close</button>
-    </div>
-    <div class="overflow-y-auto custom-scrollbar px-8 py-6 space-y-8">
-      <div>
-        <div class="flex items-center gap-2 mb-4"><span class="material-symbols-outlined text-primary" style="font-variation-settings:'FILL' 1;">person</span><h2 class="font-label-mono text-label-mono text-primary tracking-widest">CUSTOMER FEATURES</h2></div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-          <div class="feature-item">🔍 Homepage hero + featured products</div><div class="feature-item">🗂️ Product grid with thumbnails & prices</div>
-          <div class="feature-item">🏷️ Category browsing (sneakers, sandals, boots)</div><div class="feature-item">⭐ New Arrivals & Best Sellers sections</div>
-          <div class="feature-item">📸 Multi-angle product photos</div><div class="feature-item">📐 Size selector + size guide</div>
-          <div class="feature-item">🎨 Color / filament variant picker</div><div class="feature-item">⏱️ Print & shipping time displayed</div>
-          <div class="feature-item">🛒 Persistent cart across sessions</div><div class="feature-item">💳 Secure checkout (Stripe / PayPal)</div>
-          <div class="feature-item">📦 Guest checkout — no account needed</div><div class="feature-item">👤 Customer accounts + order history</div>
-          <div class="feature-item">📬 Saved shipping addresses</div><div class="feature-item">🔑 Password reset via email</div>
-        </div>
-      </div>
-      <div class="border-t border-white/10"></div>
-      <div>
-        <div class="flex items-center gap-2 mb-4"><span class="material-symbols-outlined text-secondary" style="font-variation-settings:'FILL' 1;">store</span><h2 class="font-label-mono text-label-mono text-secondary tracking-widest">SHOP OWNER FEATURES</h2></div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-          <div class="feature-item">📋 Admin dashboard for products</div><div class="feature-item">➕ Add / edit / delete listings</div>
-          <div class="feature-item">💰 Set price, material, print time</div><div class="feature-item">🔀 Size & color variant management</div>
-          <div class="feature-item">📬 View & manage incoming orders</div><div class="feature-item">🚦 Update order status (Printing → Shipped)</div>
-          <div class="feature-item">📧 Auto email notifications to customers</div><div class="feature-item">🚚 Add tracking numbers to orders</div>
-          <div class="feature-item">📊 Stock quantity per variant</div><div class="feature-item">🔔 Low-stock alerts (below 3 units)</div>
-          <div class="feature-item">🖨️ "Made to Order" toggle</div><div class="feature-item">📈 Sales summary & revenue dashboard</div>
-        </div>
-      </div>
-      <div class="border-t border-white/10"></div>
-      <div>
-        <div class="flex items-center gap-2 mb-4"><span class="material-symbols-outlined text-primary" style="font-variation-settings:'FILL' 1;">web</span><h2 class="font-label-mono text-label-mono text-primary tracking-widest">REQUIRED PAGES</h2></div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-          <div class="feature-item">🏠 Home — hero, featured, shop story</div><div class="feature-item">🛍️ Shop — full catalog with filters</div>
-          <div class="feature-item">👟 Product Detail — images, add to cart</div><div class="feature-item">🛒 Cart — review items before checkout</div>
-          <div class="feature-item">💳 Checkout — address, shipping, payment</div><div class="feature-item">✅ Confirmation — thank-you + order number</div>
-          <div class="feature-item">📖 About — shop story, why 3D printed</div>
-        </div>
-      </div>
-      <div class="border-t border-white/10"></div>
-      <div>
-        <div class="flex items-center gap-2 mb-4"><span class="material-symbols-outlined text-secondary" style="font-variation-settings:'FILL' 1;">auto_awesome</span><h2 class="font-label-mono text-label-mono text-secondary tracking-widest">NICE-TO-HAVE FEATURES</h2></div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-          <div class="feature-item">🔎 Search bar with instant results</div><div class="feature-item">🎛️ Filter by size, color, price range</div>
-          <div class="feature-item">⭐ Customer star ratings & reviews</div><div class="feature-item">📷 Photo reviews from customers</div>
-          <div class="feature-item">❤️ Wishlist (saveable + shareable)</div><div class="feature-item">🏷️ Promo / discount code system</div>
-          <div class="feature-item">📰 Email newsletter + signup discount</div><div class="feature-item">📱 Mobile-responsive design</div>
-          <div class="feature-item">🔔 "Back in Stock" email alerts</div><div class="feature-item">💬 Live chat or contact form</div>
-          <div class="feature-item">❓ FAQ — printing, sizing, shipping</div>
-        </div>
-      </div>
-    </div>
-    <div class="px-8 py-4 border-t border-white/10 flex justify-between items-center bg-surface-container-lowest">
-      <span class="font-label-mono text-[11px] text-on-surface-variant/50">SOLEFORGE · DEVELOPER ROADMAP v1.0</span>
-      <button id="close-roadmap-btn" class="neon-btn px-6 py-2 font-label-mono text-label-mono text-on-primary font-bold tracking-widest text-[12px]">CLOSE</button>
-    </div>
-  </div>
-</div>
+### Recommended hosts
+- **Render** — Free tier, auto-deploys from GitHub. Set start command to `uvicorn server:app --host 0.0.0.0 --port $PORT`
+- **Railway** — Similar workflow, $5/month after free credits.
+- **Fly.io** — Free shared CPU + always-on.
 
-<script>
-// ═══════════════════════════════════════════════════
-//  BACKGROUND SHADER
-// ═══════════════════════════════════════════════════
-(function() {
-  const canvas = document.getElementById('sf-shader');
-  function syncSize() {
-    const w = canvas.clientWidth || 1280, h = canvas.clientHeight || 720;
-    if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
-  }
-  if (typeof ResizeObserver !== 'undefined') new ResizeObserver(syncSize).observe(canvas);
-  syncSize();
-  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-  if (!gl) return;
-  const vs = `attribute vec2 a_position; varying vec2 v_texCoord; void main() { v_texCoord = a_position * 0.5 + 0.5; gl_Position = vec4(a_position, 0.0, 1.0); }`;
-  const fs = `precision highp float; varying vec2 v_texCoord; uniform float u_time; void main() { vec2 uv = v_texCoord; vec2 grid = fract(uv * 20.0 - 0.5); float line = smoothstep(0.02, 0.0, abs(grid.x - 0.5)) + smoothstep(0.02, 0.0, abs(grid.y - 0.5)); vec3 color = mix(vec3(0.05,0.05,0.07), vec3(0.0,0.94,1.0), line * 0.15); float pulse = sin(u_time * 0.5) * 0.5 + 0.5; color += vec3(0.44,0.0,1.0) * line * 0.05 * pulse; gl_FragColor = vec4(color, 1.0); }`;
-  function cs(t, s) { const sh = gl.createShader(t); gl.shaderSource(sh, s); gl.compileShader(sh); return sh; }
-  const prog = gl.createProgram();
-  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
-  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
-  gl.linkProgram(prog); gl.useProgram(prog);
-  const buf = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,1,1]), gl.STATIC_DRAW);
-  const pos = gl.getAttribLocation(prog, 'a_position');
-  gl.enableVertexAttribArray(pos); gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
-  const uTime = gl.getUniformLocation(prog, 'u_time');
-  const uRes  = gl.getUniformLocation(prog, 'u_resolution');
-  function render(t) {
-    syncSize(); gl.viewport(0, 0, canvas.width, canvas.height);
-    if (uTime) gl.uniform1f(uTime, t * 0.001);
-    if (uRes)  gl.uniform2f(uRes, canvas.width, canvas.height);
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-    requestAnimationFrame(render);
-  }
-  render(0);
-})();
+### Stripe webhook
+After deploying the backend, in your Stripe Dashboard add a webhook endpoint:
+```
+https://<your-backend-domain>/api/webhook/stripe
+```
+Events: `checkout.session.completed`, `checkout.session.expired`.
 
-// ═══════════════════════════════════════════════════
-//  ROUTER
-// ═══════════════════════════════════════════════════
-function navigate(page) {
-  // Hide all pages
-  document.querySelectorAll('.sf-page').forEach(p => p.classList.remove('active'));
-  // Show target
-  const el = document.getElementById('sf-' + page);
-  if (el) el.classList.add('active');
+---
 
-  // Update desktop nav
-  document.querySelectorAll('[data-navpage]').forEach(link => {
-    const isActive = link.dataset.navpage === page;
-    link.classList.toggle('active', isActive);
-  });
+## Test the checkout flow
 
-  // Update mobile bottom nav
-  document.querySelectorAll('.mobile-nav-link').forEach(link => {
-    link.classList.toggle('active', link.dataset.navpage === page);
-  });
+1. Open the Vercel site → navigate to **Cart**.
+2. Click **SECURE CHECKOUT**.
+3. You'll be redirected to Stripe's test checkout.
+4. Use card `4242 4242 4242 4242`, any future expiry, any CVC.
+5. After success, you'll land back on the site at `?page=success&session_id=cs_test_...` which polls the backend and confirms payment.
 
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+---
 
-  // Re-init cart every time that page is shown
-  if (page === 'cart') initCart();
-}
+## API endpoints (backend)
 
-// ═══════════════════════════════════════════════════
-//  MOBILE MENU
-// ═══════════════════════════════════════════════════
-document.getElementById('mobile-menu-btn').addEventListener('click', () => {
-  document.getElementById('mobile-drawer').classList.remove('hidden');
-});
-function closeMobileMenu() {
-  document.getElementById('mobile-drawer').classList.add('hidden');
-}
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/api/` | Health check |
+| GET | `/api/products` | List products (server-side prices) |
+| GET | `/api/products/{id}` | Get single product |
+| POST | `/api/cart/quote` | Get totals (no DB write) |
+| POST | `/api/checkout/session` | Create Stripe session + order record |
+| GET | `/api/checkout/status/{session_id}` | Poll payment status |
+| POST | `/api/webhook/stripe` | Stripe webhook handler |
 
-// ═══════════════════════════════════════════════════
-//  ROADMAP MODAL
-// ═══════════════════════════════════════════════════
-const roadmapModal = document.getElementById('roadmap-modal');
-document.getElementById('open-roadmap').addEventListener('click', e => {
-  e.preventDefault();
-  roadmapModal.classList.remove('hidden');
-  document.body.style.overflow = 'hidden';
-});
-function closeRoadmap() {
-  roadmapModal.classList.add('hidden');
-  document.body.style.overflow = '';
-}
-document.getElementById('close-roadmap').addEventListener('click', closeRoadmap);
-document.getElementById('close-roadmap-btn').addEventListener('click', closeRoadmap);
-document.getElementById('roadmap-backdrop').addEventListener('click', closeRoadmap);
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeRoadmap(); });
+---
 
-// ═══════════════════════════════════════════════════
-//  CART LOGIC
-// ═══════════════════════════════════════════════════
-function initCart() {
-  document.querySelectorAll('#sf-cart .qty-plus').forEach(btn => {
-    btn.onclick = () => {
-      const val = btn.closest('[data-price]').querySelector('.qty-val');
-      val.textContent = parseInt(val.textContent) + 1;
-      recalcCart();
-    };
-  });
-  document.querySelectorAll('#sf-cart .qty-minus').forEach(btn => {
-    btn.onclick = () => {
-      const val = btn.closest('[data-price]').querySelector('.qty-val');
-      const n = parseInt(val.textContent);
-      if (n > 1) { val.textContent = n - 1; recalcCart(); }
-    };
-  });
-  document.querySelectorAll('#sf-cart .remove-item').forEach(btn => {
-    btn.onclick = () => {
-      btn.closest('[data-price]').remove();
-      recalcCart();
-    };
-  });
-  const promoBtn = document.getElementById('promo-btn');
-  if (promoBtn && !promoBtn._bound) {
-    promoBtn._bound = true;
-    promoBtn.onclick = () => {
-      const code = document.getElementById('promo-input').value.trim().toUpperCase();
-      const msg  = document.getElementById('promo-msg');
-      msg.classList.remove('hidden');
-      if (code === 'FORGE2024') {
-        msg.textContent = '✓ 10% discount applied!';
-        msg.style.color = '#00dbe9';
-      } else {
-        msg.textContent = '✗ Invalid code. Try FORGE2024';
-        msg.style.color = '#ffb4ab';
-      }
-    };
-  }
-  recalcCart();
-}
-
-function recalcCart() {
-  let subtotal = 0, count = 0;
-  document.querySelectorAll('#sf-cart #cart-items [data-price]').forEach(item => {
-    if (item.id === 'empty-cart') return;
-    const price = parseInt(item.dataset.price);
-    const qty   = parseInt(item.querySelector('.qty-val').textContent);
-    subtotal += price * qty;
-    count    += qty;
-    item.querySelector('.item-total').textContent = '$' + (price * qty).toLocaleString();
-  });
-  const tax   = Math.round(subtotal * 0.09);
-  const total = subtotal + 12 + tax;
-  const g = id => document.getElementById(id);
-  if (g('subtotal')) g('subtotal').textContent = '$' + subtotal.toLocaleString();
-  if (g('tax'))      g('tax').textContent      = '$' + tax.toLocaleString();
-  if (g('total'))    g('total').textContent    = '$' + total.toLocaleString();
-  if (g('cart-count')) g('cart-count').textContent = count + ' item' + (count !== 1 ? 's' : '') + ' ready to forge';
-  const empty = document.getElementById('empty-cart');
-  if (empty) { count === 0 ? empty.classList.remove('hidden') : empty.classList.add('hidden'); }
-}
-
-// ═══════════════════════════════════════════════════
-//  SHOP CARD HOVER FX
-// ═══════════════════════════════════════════════════
-document.querySelectorAll('.glass-card').forEach(card => {
-  card.addEventListener('mousemove', e => {
-    const rect = card.getBoundingClientRect();
-    card.style.setProperty('--mouse-x', (e.clientX - rect.left) + 'px');
-    card.style.setProperty('--mouse-y', (e.clientY - rect.top) + 'px');
-  });
-});
-
-// ═══════════════════════════════════════════════════
-//  BOOT — start on Home
-// ═══════════════════════════════════════════════════
-navigate('home');
-</script>
-</body>
-</html>
+## Notes
+- Promo codes: `FORGE2024` (10% off), `BATCH001` (15% off) — defined server-side in `server.py`.
+- Tax: 9% (configurable in `server.py` → `TAX_RATE`).
+- Shipping: flat $12.
+- Stripe is in **test mode** — no real charges happen.
+"
